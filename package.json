@@ -8,7 +8,9 @@
   "build": "npm run lint && tsc -p . && tsc-alias",
   "dev": "tsx watch src/app.ts",
   "lint": "eslint src",
-  "lint:fix": "eslint src --fix"
+  "lint:fix": "eslint src --fix",
+  "prisma:generate": "prisma generate",
+  "prisma:migrate": "prisma migrate dev"
  },
  "keywords": [],
  "author": "",
