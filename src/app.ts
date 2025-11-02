@@ -11,7 +11,7 @@ dotenv.config({ path: "./.env" });
 export const envMode = process.env.NODE_ENV?.trim() || "DEVELOPMENT";
 const port = process.env.PORT || 3000;
 
-export const prisma = new PrismaClient();
+export const db = new PrismaClient();
 const app = express();
 
 app.use(
@@ -31,11 +31,12 @@ app.get("/", (req, res) => {
 });
 
 // your routes here
-app.get("/api/new-user", TryCatch(async (req, res, next) => {
-  const user = await prisma.user.create({
+app.get("/api/new-user", TryCatch(async (req, res) => {
+  const email = req.query.email as string;
+  const user = await db.user.create({
     data: {
       name: "John Doe",
-      email: "hon@gmai.com", 
+      email, 
       age: 12
     }
   })
