@@ -14,4 +14,14 @@ model User {
   email String @unique
   name String?
   age Int?
+  isActive Boolean
+  createdAt DateTime @default(now())
+  NotificationMethod Json
+  blog Bytes
+}
+
+model NotificationMethod {
+  id Int @default(autoincrement())
+  phone Boolean
+  email Boolean
 }
