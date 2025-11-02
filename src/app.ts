@@ -1,7 +1,7 @@
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
-import { errorMiddleware } from "@/middlewares/error.js";
+import { errorMiddleware, TryCatch } from "@/middlewares/error.js";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { PrismaClient } from "@prisma/client";
@@ -31,13 +31,21 @@ app.get("/", (req, res) => {
 });
 
 // your routes here
-// app.get("/api/new-user", async (req, res, next) => {
-//   const user = await prisma.user.create({
-//     data: {
+app.get("/api/new-user", TryCatch(async (req, res, next) => {
+  const user = await prisma.user.create({
+    data: {
+      name: "John Doe",
+      email: "hon@gmai.com", 
+      age: 12
+    }
+  })
 
-//     }
-//   })
-// })
+  res.status(200).json({
+    success: true, 
+    message: "User creted success", 
+    user,
+  })
+}))
 
 app.get(/.*/, (req, res) => {
   res.status(404).json({
